@@ -148,7 +148,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-12">
+      <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-8 md:py-12 mb-20 md:mb-0">
         <AnimatePresence mode="wait">
           {activeTab === 'diagnose' && (
             <motion.div 
@@ -156,24 +156,24 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="space-y-12"
+              className="space-y-8 md:space-y-12"
             >
               <div className="text-center space-y-4">
-                <h2 className="text-5xl font-light serif text-sage leading-tight">
+                <h2 className="text-3xl md:text-5xl font-light serif text-sage leading-tight">
                   Heal your crops with <br /> <span className="italic">visual intelligence</span>
                 </h2>
-                <p className="text-gray-500 max-w-xl mx-auto">
+                <p className="text-sm md:text-base text-gray-500 max-w-xl mx-auto px-4">
                   Upload a photo of your plant's leaves to detect diseases and pests instantly using advanced AI.
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-12 items-start">
+              <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
                 {/* Upload Section */}
                 <div className="space-y-6">
                   <div 
                     {...getRootProps()} 
                     className={cn(
-                      "aspect-square rounded-3xl border-2 border-dashed flex flex-col items-center justify-center p-8 transition-all cursor-pointer",
+                      "aspect-square rounded-3xl border-2 border-dashed flex flex-col items-center justify-center p-6 md:p-8 transition-all cursor-pointer",
                       isDragActive ? "border-sage bg-sage/5" : "border-sage/20 bg-white hover:border-sage/40"
                     )}
                   >
@@ -182,12 +182,12 @@ export default function App() {
                       <img src={image} alt="Preview" className="w-full h-full object-cover rounded-2xl" referrerPolicy="no-referrer" />
                     ) : (
                       <div className="text-center space-y-4">
-                        <div className="w-16 h-16 bg-sage/10 rounded-full flex items-center justify-center mx-auto text-sage">
-                          <Camera size={32} />
+                        <div className="w-12 h-12 md:w-16 md:h-16 bg-sage/10 rounded-full flex items-center justify-center mx-auto text-sage">
+                          <Camera size={28} />
                         </div>
                         <div>
-                          <p className="font-medium text-sage">Click or drag photo here</p>
-                          <p className="text-xs text-gray-400">Supports JPG, PNG up to 10MB</p>
+                          <p className="text-sm md:text-base font-medium text-sage">Click or drag photo here</p>
+                          <p className="text-[10px] md:text-xs text-gray-400">Supports JPG, PNG up to 10MB</p>
                         </div>
                       </div>
                     )}
@@ -203,37 +203,37 @@ export default function App() {
                 </div>
 
                 {/* Results Section */}
-                <div className="bg-white rounded-[32px] p-8 shadow-sm border border-sage/10 min-h-[400px] flex flex-col">
+                <div className="bg-white rounded-[32px] p-6 md:p-8 shadow-sm border border-sage/10 min-h-[300px] md:min-h-[400px] flex flex-col">
                   {isAnalyzing ? (
                     <div className="flex-1 flex flex-col items-center justify-center space-y-4">
-                      <Loader2 className="animate-spin text-sage" size={40} />
-                      <p className="text-sage font-medium italic serif text-xl">Analyzing leaf health...</p>
+                      <Loader2 className="animate-spin text-sage" size={32} />
+                      <p className="text-sage font-medium italic serif text-lg md:text-xl">Analyzing leaf health...</p>
                     </div>
                   ) : diagnosis ? (
                     <div className="space-y-6">
                       <div className="flex items-center justify-between">
                         <span className={cn(
-                          "px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest",
+                          "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest",
                           diagnosis.status === 'healthy' ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
                         )}>
                           {diagnosis.status}
                         </span>
-                        <span className="text-xs text-gray-400 font-mono">
-                          Confidence: {(diagnosis.confidence * 100).toFixed(1)}%
+                        <span className="text-[10px] text-gray-400 font-mono">
+                          Conf: {(diagnosis.confidence * 100).toFixed(1)}%
                         </span>
                       </div>
                       
-                      <h3 className="text-3xl font-bold serif text-sage">{diagnosis.label}</h3>
-                      <p className="text-gray-600 leading-relaxed">{diagnosis.description}</p>
+                      <h3 className="text-2xl md:text-3xl font-bold serif text-sage">{diagnosis.label}</h3>
+                      <p className="text-sm md:text-base text-gray-600 leading-relaxed">{diagnosis.description}</p>
                       
                       <div className="space-y-4 pt-4 border-t border-sage/10">
-                        <h4 className="text-sm font-bold uppercase tracking-wider text-sage flex items-center gap-2">
-                          <CheckCircle2 size={16} />
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-sage flex items-center gap-2">
+                          <CheckCircle2 size={14} />
                           Recommendations
                         </h4>
                         <ul className="space-y-3">
                           {diagnosis.recommendations.map((rec, i) => (
-                            <li key={i} className="flex gap-3 text-sm text-gray-600">
+                            <li key={i} className="flex gap-3 text-xs md:text-sm text-gray-600">
                               <span className="text-sage font-bold">0{i+1}</span>
                               {rec}
                             </li>
@@ -243,8 +243,8 @@ export default function App() {
                     </div>
                   ) : (
                     <div className="flex-1 flex flex-col items-center justify-center text-center space-y-4 opacity-40">
-                      <Info size={48} className="text-sage" />
-                      <p className="serif text-xl italic">Upload an image to see <br /> AI diagnosis results</p>
+                      <Info size={40} className="text-sage" />
+                      <p className="serif text-lg md:text-xl italic">Upload an image to see <br /> AI diagnosis results</p>
                     </div>
                   )}
                 </div>
@@ -258,25 +258,25 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="max-w-3xl mx-auto h-[70vh] flex flex-col bg-white rounded-[32px] shadow-sm border border-sage/10 overflow-hidden"
+              className="max-w-3xl mx-auto h-[75vh] md:h-[70vh] flex flex-col bg-white rounded-[32px] shadow-sm border border-sage/10 overflow-hidden"
             >
-              <div className="p-6 border-b border-sage/10 bg-sage/5 flex items-center justify-between">
+              <div className="p-4 md:p-6 border-b border-sage/10 bg-sage/5 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-sage rounded-full flex items-center justify-center text-white">
-                    <MessageSquare size={20} />
+                  <div className="w-8 h-8 md:w-10 md:h-10 bg-sage rounded-full flex items-center justify-center text-white">
+                    <MessageSquare size={16} md:size={20} />
                   </div>
                   <div>
-                    <h3 className="font-bold serif text-sage">AgriGuard Expert Chat</h3>
-                    <p className="text-[10px] text-sage/60 uppercase tracking-widest font-bold">Always Online</p>
+                    <h3 className="text-sm md:text-base font-bold serif text-sage">AgriGuard Expert Chat</h3>
+                    <p className="text-[8px] md:text-[10px] text-sage/60 uppercase tracking-widest font-bold">Always Online</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
                 {chatMessages.map((msg, i) => (
                   <div key={i} className={cn("flex", msg.role === 'user' ? "justify-end" : "justify-start")}>
                     <div className={cn(
-                      "max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed",
+                      "max-w-[85%] md:max-w-[80%] p-3 md:p-4 rounded-2xl text-xs md:text-sm leading-relaxed",
                       msg.role === 'user' ? "bg-sage text-white rounded-tr-none" : "bg-cream text-sage rounded-tl-none"
                     )}>
                       {msg.role === 'ai' ? (
@@ -291,32 +291,32 @@ export default function App() {
                 ))}
                 {isChatting && (
                   <div className="flex justify-start">
-                    <div className="bg-cream p-4 rounded-2xl rounded-tl-none flex gap-1">
-                      <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 bg-sage rounded-full" />
-                      <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 bg-sage rounded-full" />
-                      <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-1.5 h-1.5 bg-sage rounded-full" />
+                    <div className="bg-cream p-3 md:p-4 rounded-2xl rounded-tl-none flex gap-1">
+                      <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1 md:w-1.5 h-1 md:h-1.5 bg-sage rounded-full" />
+                      <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1 md:w-1.5 h-1 md:h-1.5 bg-sage rounded-full" />
+                      <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-1 md:w-1.5 h-1 md:h-1.5 bg-sage rounded-full" />
                     </div>
                   </div>
                 )}
                 <div ref={chatEndRef} />
               </div>
 
-              <div className="p-6 border-t border-sage/10">
+              <div className="p-4 md:p-6 border-t border-sage/10">
                 <div className="relative">
                   <input 
                     type="text" 
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                    placeholder="Ask about crops, soil, or pests..."
-                    className="w-full py-4 pl-6 pr-16 bg-cream rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-sage/20"
+                    placeholder="Ask about crops, soil..."
+                    className="w-full py-3 md:py-4 pl-4 md:pl-6 pr-14 md:pr-16 bg-cream rounded-2xl text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-sage/20"
                   />
                   <button 
                     onClick={handleSendMessage}
                     disabled={isChatting || !inputMessage.trim()}
-                    className="absolute right-2 top-2 bottom-2 w-12 bg-sage text-white rounded-xl flex items-center justify-center hover:bg-sage/90 transition-colors disabled:opacity-50"
+                    className="absolute right-1.5 top-1.5 bottom-1.5 w-10 md:w-12 bg-sage text-white rounded-xl flex items-center justify-center hover:bg-sage/90 transition-colors disabled:opacity-50"
                   >
-                    <ArrowRight size={20} />
+                    <ArrowRight size={18} md:size={20} />
                   </button>
                 </div>
               </div>
@@ -329,45 +329,45 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="space-y-12"
+              className="space-y-8 md:space-y-12"
             >
               <div className="text-center space-y-4">
-                <h2 className="text-5xl font-light serif text-sage leading-tight">
+                <h2 className="text-3xl md:text-5xl font-light serif text-sage leading-tight">
                   Farming by the <span className="italic">elements</span>
                 </h2>
-                <p className="text-gray-500 max-w-xl mx-auto">
+                <p className="text-sm md:text-base text-gray-500 max-w-xl mx-auto px-4">
                   Real-time weather data combined with AI insights to optimize your planting and harvesting schedule.
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="bg-white p-8 rounded-[32px] border border-sage/10 space-y-6">
+              <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+                <div className="bg-white p-6 md:p-8 rounded-[32px] border border-sage/10 space-y-6">
                   <div className="flex items-center justify-between">
-                    <CloudSun size={32} className="text-sage" />
-                    <span className="text-4xl font-light serif">24°C</span>
+                    <CloudSun size={28} md:size={32} className="text-sage" />
+                    <span className="text-3xl md:text-4xl font-light serif">24°C</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-sage">Partly Cloudy</h3>
-                    <p className="text-xs text-gray-400">Nairobi, Kenya</p>
+                    <h3 className="text-sm md:text-base font-bold text-sage">Partly Cloudy</h3>
+                    <p className="text-[10px] text-gray-400">Nairobi, Kenya</p>
                   </div>
                   <div className="pt-4 border-t border-sage/10">
-                    <p className="text-sm text-gray-600 italic">"Perfect conditions for applying organic fertilizers today."</p>
+                    <p className="text-xs md:text-sm text-gray-600 italic">"Perfect conditions for applying organic fertilizers today."</p>
                   </div>
                 </div>
 
-                <div className="md:col-span-2 bg-sage text-white p-8 rounded-[32px] flex flex-col justify-between">
+                <div className="md:col-span-2 bg-sage text-white p-6 md:p-8 rounded-[32px] flex flex-col justify-between">
                   <div className="space-y-2">
-                    <h3 className="text-2xl font-bold serif">Weekly Outlook</h3>
-                    <p className="text-sage-100 text-sm opacity-80">Expect moderate rainfall starting Thursday.</p>
+                    <h3 className="text-xl md:text-2xl font-bold serif">Weekly Outlook</h3>
+                    <p className="text-sage-100 text-xs md:text-sm opacity-80">Expect moderate rainfall starting Thursday.</p>
                   </div>
                   
-                  <div className="grid grid-cols-5 gap-4 pt-8">
+                  <div className="grid grid-cols-5 gap-2 md:gap-4 pt-6 md:pt-8">
                     {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day, i) => (
                       <div key={day} className="text-center space-y-2">
-                        <p className="text-[10px] uppercase font-bold tracking-widest opacity-60">{day}</p>
-                        <div className="h-20 bg-white/10 rounded-2xl flex flex-col items-center justify-center">
-                          <CloudSun size={16} />
-                          <p className="text-xs font-bold mt-1">{22 + i}°</p>
+                        <p className="text-[8px] md:text-[10px] uppercase font-bold tracking-widest opacity-60">{day}</p>
+                        <div className="h-16 md:h-20 bg-white/10 rounded-xl md:rounded-2xl flex flex-col items-center justify-center">
+                          <CloudSun size={14} md:size={16} />
+                          <p className="text-[10px] md:text-xs font-bold mt-1">{22 + i}°</p>
                         </div>
                       </div>
                     ))}
@@ -375,23 +375,23 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="bg-white p-8 rounded-[32px] border border-sage/10">
-                <h3 className="text-xl font-bold serif text-sage mb-6">AI Planting Recommendations</h3>
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white p-6 md:p-8 rounded-[32px] border border-sage/10">
+                <h3 className="text-lg md:text-xl font-bold serif text-sage mb-6">AI Planting Recommendations</h3>
+                <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   {[
                     { crop: 'Maize', action: 'Wait', reason: 'Soil moisture is currently too low for optimal germination.' },
                     { crop: 'Beans', action: 'Plant Now', reason: 'Upcoming rainfall will provide perfect initial hydration.' },
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-cream">
                       <div className={cn(
-                        "w-10 h-10 rounded-full flex items-center justify-center text-white shrink-0",
+                        "w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white shrink-0",
                         item.action === 'Wait' ? "bg-amber-500" : "bg-green-500"
                       )}>
-                        {item.action === 'Wait' ? <AlertCircle size={20} /> : <CheckCircle2 size={20} />}
+                        {item.action === 'Wait' ? <AlertCircle size={16} md:size={20} /> : <CheckCircle2 size={16} md:size={20} />}
                       </div>
                       <div>
-                        <h4 className="font-bold text-sage">{item.crop}: {item.action}</h4>
-                        <p className="text-xs text-gray-600 mt-1">{item.reason}</p>
+                        <h4 className="text-sm md:text-base font-bold text-sage">{item.crop}: {item.action}</h4>
+                        <p className="text-[10px] md:text-xs text-gray-600 mt-1">{item.reason}</p>
                       </div>
                     </div>
                   ))}
@@ -401,6 +401,31 @@ export default function App() {
           )}
         </AnimatePresence>
       </main>
+
+      {/* Mobile Bottom Nav */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-sage/10 px-6 py-3 flex justify-around items-center z-50">
+        <button 
+          onClick={() => setActiveTab('diagnose')} 
+          className={cn("flex flex-col items-center gap-1 transition-all", activeTab === 'diagnose' ? "text-sage scale-110" : "text-gray-400")}
+        >
+          <Camera size={20} />
+          <span className="text-[8px] font-bold uppercase tracking-widest">Diagnose</span>
+        </button>
+        <button 
+          onClick={() => setActiveTab('advice')} 
+          className={cn("flex flex-col items-center gap-1 transition-all", activeTab === 'advice' ? "text-sage scale-110" : "text-gray-400")}
+        >
+          <MessageSquare size={20} />
+          <span className="text-[8px] font-bold uppercase tracking-widest">Advice</span>
+        </button>
+        <button 
+          onClick={() => setActiveTab('weather')} 
+          className={cn("flex flex-col items-center gap-1 transition-all", activeTab === 'weather' ? "text-sage scale-110" : "text-gray-400")}
+        >
+          <CloudSun size={20} />
+          <span className="text-[8px] font-bold uppercase tracking-widest">Weather</span>
+        </button>
+      </div>
 
       {/* Footer */}
       <footer className="py-12 border-t border-sage/10 bg-white">
