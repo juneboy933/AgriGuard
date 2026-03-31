@@ -1,0 +1,7 @@
+{
+  "name": "AgriGuard AI",
+  "description": "A powerful AI-driven assistant for farmers to diagnose crop diseases, get weather-aware planting advice, and access sustainable farming insights.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
